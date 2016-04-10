@@ -1,0 +1,10 @@
+/.idea
+/vendor
+/node_modules
+/resources/assets/bower
+Homestead.yaml
+Homestead.json
+.env
+composer.lock
+/public/css/css.css
+/public/js/js.js

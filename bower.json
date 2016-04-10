@@ -1,0 +1,25 @@
+{
+  "name": "expenses",
+  "description": "Toptal test assignment",
+  "main": "",
+  "authors": [
+    "Eduards Vigulis"
+  ],
+  "license": "MIT",
+  "moduleType": [],
+  "homepage": "",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "resources/assets/bower",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "jquery": "^2.2.3",
+    "bootstrap": "^3.3.6",
+    "font-awesome": "^4.5.0",
+    "lato": "^0.3.0"
+  }
+}
