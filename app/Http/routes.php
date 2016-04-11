@@ -1,8 +1,6 @@
 <?php
-Route::group(['middleware' => 'web'], function() {
-	Route::auth();
-	Route::get('/', 'HomeController@index');
-});
+Route::auth();
+Route::get('/', 'HomeController@index');
 
 Route::get('api/v1/users/getToken', 'UsersApiController@getToken');
 Route::post('api/v1/users', 'UsersApiController@store');
