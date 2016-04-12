@@ -3,24 +3,31 @@
 namespace App;
 
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Response;
 
 class User extends Authenticatable
 {
-    /**
-     * The attributes that are mass assignable.
-     *
-     * @var array
-     */
-    protected $fillable = [
-        'name', 'email', 'password',
-    ];
+	protected $fillable = ['name', 'email', 'password'];
+	protected $hidden = ['remember_token'];
 
-    /**
-     * The attributes that should be hidden for arrays.
-     *
-     * @var array
-     */
-    protected $hidden = [
-        'password', 'remember_token',
-    ];
+	public static function getAdminStatus()
+	{
+		if (Auth::check()) {
+			$user = Auth::user();
+			return $user->is_admin;
+		} else {
+			return Response::make('Unauthorised', 401);
+		}
+	}
+
+	public static function getUserId()
+	{
+		if (Auth::check()) {
+			$user = Auth::user();
+			return $user->id;
+		} else {
+			return false;
+		}
+	}
 }
