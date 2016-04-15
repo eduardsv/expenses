@@ -19,7 +19,7 @@ class CreateExpensesTable extends Migration
 			$table->time('time');
 			$table->text('description')->nullable();
 			$table->float('amount');
-			$table->string('comment')->nullable();
+			$table->text('comment')->nullable();
 			$table->timestamps();
 		});
 	}

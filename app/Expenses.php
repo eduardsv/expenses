@@ -13,8 +13,9 @@ class Expenses extends Model
 
 	public static function getEntries($request, $all = false)
 	{
+		// error_log('Expenses::getEntries()');
 		$user = Auth::user();
-		$return = DB::table('expenses')->orderBy('date', 'desc');
+		$return = DB::table('expenses')->orderBy('date', 'desc')->orderBy('time', 'desc');
 		if ($request->from) { $return->where('date', '>', date("Y-m-d", strtotime($request->from))); }
 		if ($request->to) { $return->where('date', '<', date("Y-m-d", strtotime($request->to))); }
 		if ($all == true) {

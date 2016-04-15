@@ -17,7 +17,7 @@ var notify = require('gulp-notify');
 var js_files = [
 	'resources/assets/bower/jquery/dist/jquery.min.js',
 	'resources/assets/bower/bootstrap/dist/js/bootstrap.min.js',
-	'resources/assets/scripts/jquery.pickmeup.min.js',
+	'resources/assets/bower/pickmeup/js/jquery.pickmeup.min.js',
 	'resources/assets/scripts/scripts.js'
 ];
 
@@ -25,6 +25,8 @@ var css_files = [
 	'resources/assets/bower/font-awesome/css/font-awesome.min.css',
 	'resources/assets/bower/lato/css/lato.min.css',
 	'resources/assets/bower/bootstrap/dist/css/bootstrap.css',
+	'resources/assets/bower/pickmeup/css/pickmeup.min.css',
+	'resources/assets/styles/balloon.min.css',
 	'resources/assets/styles/styles.less'
 ];
 

@@ -12,7 +12,7 @@
 	<link rel="stylesheet" href="/css/css.css">
 </head>
 <body id="app-layout">
-	{{--@include('modals.new_entry')--}}
+	@include('modals.new_entry')
 	{{--@include('modals.new_user')--}}
 	<nav class="navbar navbar-default navbar-static-top">
 		<div class="container">
