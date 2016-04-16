@@ -8,17 +8,18 @@
 				{{--<div class="panel-heading">Dashboard</div>--}}
 				<div class="panel-body">
 
-					<div id="ajax-loading"><img src="/img/loading.gif" alt="Loading..."></div>
-
 					<!-- Buttons -->
 					<div id="header-buttons">
 						<div id="my-entry-buttons" class="header-buttons">
 							<button type="button" data-toggle="modal" data-target="#newEntryModal" class="btn btn-primary btn-add-new-entry">Add new entry</button>
-							{{--<a class="btn btn-primary btn-my-export" href="/exportMyEntries" target="_blank">Export my entries</a>--}}
-							<button type="button" class="btn btn-primary filter-date fa fa-calendar pull-right"></button>
+							@if (isset($jwt_token))
+							<a class="btn btn-primary btn-my-export" href="/api/v1/expenses/export?token={{ $jwt_token }}" target="_blank">Export my entries</a>
+							@endif
+							<button type="button" class="btn btn-primary filter-date filter-date-my-entries fa fa-calendar pull-right"></button>
 						</div>
 						<div id="all-entry-buttons" class="header-buttons">
-							{{--<a class="btn btn-primary btn-all-export" href="/exportAllEntries" target="_blank">Export all entries</a>--}}
+							<button type="button" data-toggle="modal" data-target="#newEntryModal" class="btn btn-primary btn-add-new-entry">Add new entry</button>
+							<button type="button" class="btn btn-primary filter-date filter-date-all-entries fa fa-calendar pull-right"></button>
 						</div>
 						<div id="user-buttons" class="header-buttons">
 							{{--<button type="button" data-toggle="modal" data-target="#newUserModal" class="btn btn-primary btn-add-new-user">Add new user</button>--}}
@@ -26,15 +27,31 @@
 					</div>
 					<!-- /Buttons -->
 
-					<table class="table content-table table-my-entries" id="table-my-entries">
+					<div id="ajax-loading"><img src="/img/loading.gif" alt="Loading..."></div>
+
+					<table class="table content-table table-my-entries sortable" id="table-my-entries">
 						<thead>
 						<tr>
-							<th>Date</th>
-							<th>Time</th>
+							<th data-defaultsort="desc">Date</th>
+							<th data-defaultsort='disabled'>Time</th>
 							<th>Amount</th>
-							<th>Description</th>
-							{{--<th>Comment</th>--}}
-							<th>Actions</th>
+							<th data-defaultsort='disabled'>Description</th>
+							<th data-defaultsort='disabled'>Actions</th>
+						</tr>
+						</thead>
+						<tbody>
+						</tbody>
+					</table>
+
+					<table class="table content-table table-all-entries sortable" id="table-all-entries">
+						<thead>
+						<tr>
+							<th></th>
+							<th data-defaultsort="desc">Date</th>
+							<th data-defaultsort='disabled'>Time</th>
+							<th>Amount</th>
+							<th data-defaultsort='disabled'>Description</th>
+							<th data-defaultsort='disabled'>Actions</th>
 						</tr>
 						</thead>
 						<tbody>

@@ -47,6 +47,11 @@ class ExpensesApiController extends Controller
 		}
 	}
 
+	public function exportMyEntries()
+	{
+		return Response::make(['hello']);
+	}
+
 	public function store(Request $request)
 	{
 		$this->user = Auth::user();

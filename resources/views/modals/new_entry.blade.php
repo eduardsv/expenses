@@ -9,18 +9,19 @@
 				<div class="modal-body">
 					<input type="hidden" class="form-control" name="_token" value="{{ csrf_token() }}">
 					@if (Auth::check())
-						<input type="hidden" class="form-control" name="user_id" value="{{ Auth::user()->id }}">
+						@if($user->is_admin > 0)
+							<div class="form-group">
+								<label class="control-label" for="userInput">Select user</label>
+								<select class="form-control" name="user_id" id="userSelect">
+									@foreach($allUsers as $u)
+										<option @if($u->id == $user->id) selected @endif value="{{ $u->id }}">{{ $u->name }}</option>
+									@endforeach
+								</select>
+							</div>
+						@else
+							<input type="hidden" class="form-control" name="user_id" value="{{ Auth::user()->id }}">
+						@endif
 					@endif
-					{{--@if(isset($adminStatus) && $adminStatus > 1)--}}
-						{{--<div class="form-group">--}}
-							{{--<label class="control-label" for="dateInput">Select user</label>--}}
-							{{--<select class="form-control" name="user_id" id="userSelect">--}}
-								{{--@foreach($allUsers as $u)--}}
-									{{--<option @if($u->id == $user->id) selected @endif value="{{ $u->id }}">{{ $u->name }}</option>--}}
-								{{--@endforeach--}}
-							{{--</select>--}}
-						{{--</div>--}}
-					{{--@endif--}}
 					<div class="form-group">
 						<label class="control-label" for="dateInput">Enter the date</label>
 						<input type="date" class="form-control" name="date" id="dateInput">

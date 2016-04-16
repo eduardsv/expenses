@@ -18,6 +18,9 @@ var js_files = [
 	'resources/assets/bower/jquery/dist/jquery.min.js',
 	'resources/assets/bower/bootstrap/dist/js/bootstrap.min.js',
 	'resources/assets/bower/pickmeup/js/jquery.pickmeup.min.js',
+	'resources/assets/bower/moment/min/moment.min.js',
+	'resources/assets/bower/bootstrap-sortable/Scripts/bootstrap-sortable.js',
+	'resources/assets/bower/bootbox.js/bootbox.js',
 	'resources/assets/scripts/scripts.js'
 ];
 
@@ -26,6 +29,7 @@ var css_files = [
 	'resources/assets/bower/lato/css/lato.min.css',
 	'resources/assets/bower/bootstrap/dist/css/bootstrap.css',
 	'resources/assets/bower/pickmeup/css/pickmeup.min.css',
+	'resources/assets/bower/bootstrap-sortable/Contents/bootstrap-sortable.css',
 	'resources/assets/styles/balloon.min.css',
 	'resources/assets/styles/styles.less'
 ];

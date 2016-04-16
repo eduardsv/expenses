@@ -8,6 +8,7 @@ Route::post('api/v1/users', 'UsersApiController@store');
 Route::group(['prefix' => 'api/v1', 'middleware' => 'api'], function() {
 	Route::get('expenses/my', 'ExpensesApiController@getMyEntries');
 	Route::get('expenses/all', 'ExpensesApiController@getAllEntries');
+	Route::get('expenses/export', 'ExpensesApiController@exportMyEntries');
 	Route::resource('users', 'UsersApiController');
 	Route::resource('expenses', 'ExpensesApiController');
 });

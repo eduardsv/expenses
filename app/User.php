@@ -30,4 +30,11 @@ class User extends Authenticatable
 			return false;
 		}
 	}
+
+	public static function getAllUsers()
+	{
+		if (User::getAdminStatus() > 0) {
+			return User::all();
+		}
+	}
 }

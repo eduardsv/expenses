@@ -6,6 +6,7 @@ use App\Http\Requests;
 use Illuminate\Http\Request;
 use Tymon\JWTAuth\Facades\JWTAuth;
 use Illuminate\Support\Facades\Auth;
+use App\User;
 
 class HomeController extends Controller
 {
@@ -20,6 +21,7 @@ class HomeController extends Controller
 		$token = JWTAuth::fromUser($user);
 		return view('home')
 			->with('jwt_token', $token)
-			->with('user', $user);
+			->with('user', $user)
+			->with('allUsers', User::get());
 	}
 }

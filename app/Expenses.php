@@ -19,7 +19,10 @@ class Expenses extends Model
 		if ($request->from) { $return->where('date', '>', date("Y-m-d", strtotime($request->from))); }
 		if ($request->to) { $return->where('date', '<', date("Y-m-d", strtotime($request->to))); }
 		if ($all == true) {
-			return $return->get();
+			return $return
+				->join('users', 'users.id', '=', 'expenses.user_id')
+				->select('users.name as user_name', 'expenses.*')
+				->get(); // joi
 		} else {
 			return $return->where('user_id', intval($user->id))->get();
 		}

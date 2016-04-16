@@ -21,6 +21,8 @@
     "bootstrap": "^3.3.6",
     "font-awesome": "^4.5.0",
     "lato": "^0.3.0",
-    "pickmeup": "^2.9.0"
+    "pickmeup": "^2.9.0",
+    "bootstrap-sortable": "^2.0.0",
+    "bootbox.js": "bootbox#^4.4.0"
   }
 }
