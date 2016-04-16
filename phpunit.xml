@@ -11,6 +11,8 @@
     <testsuites>
         <testsuite name="Application Test Suite">
             <directory suffix="Test.php">./tests</directory>
+            <file>tests/TestUsersApi.php</file>
+            <file>tests/TestHoursApi.php</file>
         </testsuite>
     </testsuites>
     <filter>
