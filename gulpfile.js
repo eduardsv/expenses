@@ -21,7 +21,8 @@ var js_files = [
 	'resources/assets/bower/moment/min/moment.min.js',
 	'resources/assets/bower/bootstrap-sortable/Scripts/bootstrap-sortable.js',
 	'resources/assets/bower/bootbox.js/bootbox.js',
-	'resources/assets/scripts/scripts.js'
+	'resources/assets/scripts/scripts.js',
+	'resources/assets/scripts/login.js'
 ];
 
 var css_files = [
