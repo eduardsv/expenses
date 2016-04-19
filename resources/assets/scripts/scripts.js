@@ -144,6 +144,9 @@ jQuery(document).ready(function($) {
 	function getMyEntries(date) {
 		date_url = '';
 		$('.filter-date').removeClass('btn-success').addClass('btn-primary');
+		if (typeof date == 'undefined') {
+			$('.filter-date').pickmeup('clear');
+		}
 		if (typeof date !== 'undefined' && date[0] != date[1]) {
 			date_url = '?from=' + date[0] + '&to=' + date[1];
 			$('.filter-date-my-entries').removeClass('btn-primary').addClass('btn-success');
@@ -186,9 +189,12 @@ jQuery(document).ready(function($) {
 	function getAllEntries(date) {
 		date_url = '';
 		$('.filter-date').removeClass('btn-success').addClass('btn-primary');
+		if (typeof date == 'undefined') {
+			$('.filter-date').pickmeup('clear');
+		}
 		if (typeof date !== 'undefined' && date[0] != date[1]) {
 			date_url = '?from=' + date[0] + '&to=' + date[1];
-			$('.filter-date-my-entries').removeClass('btn-primary').addClass('btn-success');
+			$('.filter-date-all-entries').removeClass('btn-primary').addClass('btn-success');
 		} else if (typeof date !== 'undefined') {
 			return false;
 		}
@@ -248,7 +254,6 @@ jQuery(document).ready(function($) {
 	}
 
 	function appInit() {
-		console.log(logged);
 		if (window.location.hash == '#my_entries_tab') { getMyEntries(); }
 		else if (window.location.hash == '#all_entries_tab') { getAllEntries(); }
 		else if (window.location.hash == '#users_tab') { getUsers(); }
