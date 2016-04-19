@@ -1,6 +1,7 @@
 var loaded;
 jQuery(document).ready(function($) {
 
+	var entries = new Array();
 	(new Image()).src = '/img/loading.gif';
 	$('.dropdown-toggle').dropdown();
 
@@ -49,12 +50,68 @@ jQuery(document).ready(function($) {
 		});
 	});
 
+	$(document).on('click', '.btn-weekly-report', function() {
+		var button = $(this);
+		$.get('/api/v1/expenses/report', function(data) {
+			$('#reportModal .modal-body').empty();
+			$.each(data, function(index, v) {
+				// $('#reportModal .modal-body')
+				if (!$('#reportModal .modal-body .year-' + v.year).length) {
+					$('#reportModal .modal-body').append('<fieldset class="year-' + v.year + '">' +
+						'<legend>Year: ' + v.year + '</legend>' +
+						'Week: ' + v.week + ' (' + v.week_start + ' - ' + v.week_end + ')' +
+						' --- SUM: ' + v.sum.toFixed(2) + ' AVG: ' + v.avg.toFixed(2) +
+						'</fieldset>')
+				} else {
+					$('#reportModal .modal-body .year-' + v.year).append('<br>' +
+						'Week: ' + v.week + ' (' + v.week_start + ' - ' + v.week_end + ')' +
+						' --- SUM: ' + v.sum.toFixed(2) + ' AVG: ' + v.avg.toFixed(2));
+				}
+			});
+		});
+		$('#reportModal').modal('show');
+	});
+
+	$(document).on('click', '.btn-edit-entry', function() {
+		var button = $(this);
+		entry_id = button.parent().parent().attr('data-id');
+		entry_data = entries[entry_id];
+		console.log(entry_data);
+		// change form action //
+		$('#editEntryForm').attr('action', '/api/v1/expenses/' + entry_id);
+		$('#editEntryModal').modal('show');
+		$('#editEntryForm select[name=user_id]').val(entry_data.user_id);
+		$('#editEntryForm input[name=entry_id]').val(entry_id);
+		$('#editEntryForm #dateInput').val(entry_data.date);
+		$('#editEntryForm #timeInput').val(entry_data.time);
+		$('#editEntryForm #amountInput').val(entry_data.amount.toFixed(2));
+		$('#editEntryForm #descriptionInput').val(entry_data.description);
+		$('#editEntryForm #commentInput').val(entry_data.comment);
+		// $('#editEntryForm').trigger('reset');
+	});
+
+	$(document).on('submit', '#editEntryForm', function(event) {
+		var form = $(this);
+		var formData = form.serialize();
+		event.preventDefault();
+		$.ajax({
+			type: "PUT",
+			url: form.attr('action'),
+			data: formData,
+			success: function(data) {
+				console.log(data);
+			},
+			error: function(data) {
+				console.log(data);
+			}
+		});
+		// $('#editEntryForm').trigger('reset');
+	});
+
 	$(document).on('click', '#logout_link', function(event) {
 		event.preventDefault();
 		$.get('/logout', function(data) {
-			bootbox.alert('You are logged out.', function() {
-
-			});
+			bootbox.alert('You are logged out.');
 		});
 	});
 
@@ -155,6 +212,7 @@ jQuery(document).ready(function($) {
 		}
 		$('#main-nav li').removeClass('active');
 		$('#my_entries_tab').parent().addClass('active');
+		$('.header-buttons').hide();
 		$('.content-table').hide();
 		$('#ajax-loading').show();
 		$.get('/api/v1/expenses/my' + date_url, function(data) {
@@ -163,6 +221,7 @@ jQuery(document).ready(function($) {
 			$('#table-my-entries tbody').empty();
 			$('#table-my-entries').show();
 			$.each(data, function(index, v) {
+				entries[v['id']] = v;
 				comment = v.comment ? ' <button type="button" ' +
 				'data-balloon="' + escapeHtml(v.comment) + '" ' +
 				'data-balloon-pos="up" ' +
@@ -200,6 +259,7 @@ jQuery(document).ready(function($) {
 		}
 		$('#main-nav li').removeClass('active');
 		$('#all_entries_tab').parent().addClass('active');
+		$('.header-buttons').hide();
 		$('.content-table').hide();
 		$('#ajax-loading').show();
 		$.get('/api/v1/expenses/all' + date_url, function(data) {
@@ -208,6 +268,7 @@ jQuery(document).ready(function($) {
 			showAllEntriesButtons();
 			$('#table-all-entries').show();
 			$.each(data, function(index, v) {
+				entries[v['id']] = v;
 				user_balloon = '<button type="button"' +
 					'data-balloon="User: ' + v.user_name + '" ' +
 					'data-balloon-pos="right" ' +

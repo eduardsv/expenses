@@ -1,4 +1,7 @@
 @include('modals.new_entry')
+@include('modals.edit_entry')
+@include('modals.report')
+
 {{--@include('modals.new_user')--}}
 <nav class="navbar navbar-default navbar-static-top">
 	<div class="container">

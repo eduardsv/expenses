@@ -12,7 +12,7 @@
 							<div id="my-entry-buttons" class="header-buttons">
 								<button type="button" data-toggle="modal" data-target="#newEntryModal" class="btn btn-primary btn-add-new-entry">Add new entry</button>
 								@if (isset($jwt_token))
-									<a class="btn btn-primary btn-my-export" href="/api/v1/expenses/export?token={{ $jwt_token }}" target="_blank">Show weekly report</a>
+									<a class="btn btn-primary btn-weekly-report" data-toggle="modal" data-target="#reportModal">Show weekly report</a>
 								@endif
 								<button type="button" class="btn btn-primary filter-date filter-date-my-entries fa fa-calendar pull-right"></button>
 							</div>

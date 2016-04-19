@@ -47,9 +47,23 @@ class ExpensesApiController extends Controller
 		}
 	}
 
-	public function exportMyEntries()
+	public function report()
 	{
-		return Response::make(['hello']);
+		$this->user = Auth::user();
+		$report = DB::select('SELECT
+			YEAR(date) as `year`,
+			WEEK(date, 1) as `week`,
+			CONCAT(YEAR(date), WEEK(date)) as `weekdate`,
+			SUM(`amount`) as `sum`,
+			ROUND(AVG(`amount`), 2) as `avg`,
+			IFNULL(STR_TO_DATE(CONCAT(YEAR(date), WEEK(date), " Sunday"), "%X%V %W"), CONCAT((YEAR(date)-1), "-12-31")) as `week_start`,
+			IFNULL(STR_TO_DATE(CONCAT(YEAR(date), WEEK(date), " Saturday"), "%X%V %W"), CONCAT(YEAR(date), "-01-01")) as `week_end`
+			FROM `expenses`
+			WHERE `expenses`.`user_id` = '.$this->user->id.'
+			GROUP BY `weekdate`
+			ORDER BY `expenses`.`date` DESC;
+		');
+		return Response::make($report);
 	}
 
 	public function store(Request $request)
