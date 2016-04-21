@@ -5,7 +5,7 @@
 				<h4 class="modal-title" id="newUserModalLabel">New User</h4>
 			</div>
 			<div class="errors"></div>
-			<form action="/addNewUser" method="post" id="addNewUserForm">
+			<form action="/api/v1/users" method="post" id="addNewUserForm">
 				<div class="modal-body">
 					<input type="hidden" class="form-control" name="_token" value="{{ csrf_token() }}">
 					<div class="form-group">

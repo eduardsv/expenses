@@ -79,6 +79,7 @@ class UsersApiController extends Controller
 			} else {
 				if (!empty($request->name)) { DB::table('users')->where('id', intval($id))->update(['name' => $request->name]); }
 				if (!empty($request->email)) { DB::table('users')->where('id', intval($id))->update(['email' => $request->email]); }
+				if (!empty($request->password)) { DB::table('users')->where('id', intval($id))->update(['password' => Hash::make($request->password)]); }
 				return Response::make('Success', 200);
 			}
 		} else {
