@@ -2,6 +2,7 @@ var loaded;
 jQuery(document).ready(function($) {
 
 	var entries = new Array();
+	var users = new Array();
 	(new Image()).src = '/img/loading.gif';
 	$('.dropdown-toggle').dropdown();
 
@@ -33,6 +34,25 @@ jQuery(document).ready(function($) {
 			});
 	});
 
+	$(document).on('submit', '#addNewUserForm', function(event) {
+		event.preventDefault();
+		$.post($(this).attr('action'), $(this).serialize())
+			.done(function(data) {
+				if (data.errors) {
+					$('#newUserModal .errors').empty();
+					$.each(data.errors, function(k, v) {
+						$('#newUserModal .errors').append('<p class="bg-danger">' + v + '</p>');
+					});
+					$('#newUserModal .errors').show();
+				} else {
+					$('#newUserModal .errors').hide();
+					$('#newUserForm').trigger('reset');
+					$('#newUserModal').modal('hide');
+					getUsers();
+				}
+			});
+	});
+
 	$(document).on('click', '.btn-delete-entry', function(event) {
 		event.preventDefault();
 		var button = $(this);
@@ -41,6 +61,23 @@ jQuery(document).ready(function($) {
 				button.parent().parent().addClass('danger');
 				$.ajax({
 					url: '/api/v1/expenses/' + button.attr('data-id'),
+					type: 'DELETE',
+					success: function (result) {
+						button.parent().parent().remove();
+					}
+				});
+			}
+		});
+	});
+
+	$(document).on('click', '.btn-delete-user', function(event) {
+		event.preventDefault();
+		var button = $(this);
+		bootbox.confirm("Are you sure?", function(result) {
+			if (result == true) {
+				button.parent().parent().addClass('danger');
+				$.ajax({
+					url: '/api/v1/users/' + button.attr('data-id'),
 					type: 'DELETE',
 					success: function (result) {
 						button.parent().parent().remove();
@@ -88,6 +125,18 @@ jQuery(document).ready(function($) {
 		// $('#editEntryForm').trigger('reset');
 	});
 
+	$(document).on('click', '.btn-edit-user', function() {
+		var button = $(this);
+		entry_id = button.parent().parent().attr('data-id');
+		entry_data = users[entry_id];
+		$('#editUserForm').attr('action', '/api/v1/users/' + entry_id);
+		$('#editUserModal').modal('show');
+		$('#editUserForm').trigger('reset');
+		$('#editUserForm select[name=user_id]').val(entry_data.user_id);
+		//$('#editUserForm #nameInput').val(entry_data.name);
+		//$('#editUserForm #emailInput').val(entry_data.email);
+	});
+
 	$(document).on('submit', '#editEntryForm', function(event) {
 		var form = $(this);
 		var formData = form.serialize();
@@ -98,9 +147,44 @@ jQuery(document).ready(function($) {
 			data: formData,
 			success: function(data) {
 				console.log(data);
+				$('#editEntryModal').modal('hide');
+				getMyEntries();
 			},
 			error: function(data) {
 				console.log(data);
+				getMyEntries();
+			}
+		});
+		// $('#editEntryForm').trigger('reset');
+	});
+
+	$(document).on('submit', '#editUserForm', function(event) {
+		var form = $(this);
+		var formData = form.serialize();
+		event.preventDefault();
+		$.ajax({
+			type: "PUT",
+			url: form.attr('action'),
+			data: formData,
+			success: function(data) {
+				// console.log(data);
+				if (data.errors) {
+					$('#editUserModal .errors').empty();
+					$.each(data.errors, function(k, v) {
+						$('#editUserModal .errors').append('<p class="bg-danger">' + v + '</p>');
+					});
+					$('#editUserModal .errors').show();
+				} else {
+					$('#editUserModal .errors').hide();
+					$('#editUserForm').trigger('reset');
+					$('#editUserModal').modal('hide');
+					getUsers();
+				}
+				getUsers();
+			},
+			error: function(data) {
+				console.log(data);
+				getUsers();
 			}
 		});
 		// $('#editEntryForm').trigger('reset');
@@ -312,6 +396,7 @@ jQuery(document).ready(function($) {
 			$('#table-users tbody').empty();
 			$('#table-users').show();
 			$.each(data, function(index, v) {
+				users[v['id']] = v;
 				$('#table-users tbody').append(
 					'<tr data-id="' + v.id + '">' +
 					'<td>' + v.id + '</td>' +
