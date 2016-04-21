@@ -21,7 +21,7 @@
 								<button type="button" class="btn btn-primary filter-date filter-date-all-entries fa fa-calendar pull-right"></button>
 							</div>
 							<div id="user-buttons" class="header-buttons">
-								{{--<button type="button" data-toggle="modal" data-target="#newUserModal" class="btn btn-primary btn-add-new-user">Add new user</button>--}}
+								<button type="button" data-toggle="modal" data-target="#newUserModal" class="btn btn-primary btn-add-new-user">Add new user</button>
 							</div>
 						</div>
 						<!-- /Buttons -->
@@ -50,6 +50,19 @@
 								<th data-defaultsort='disabled'>Time</th>
 								<th>Amount</th>
 								<th data-defaultsort='disabled'>Description</th>
+								<th data-defaultsort='disabled'>Actions</th>
+							</tr>
+							</thead>
+							<tbody>
+							</tbody>
+						</table>
+
+						<table class="table content-table table-users sortable" id="table-users">
+							<thead>
+							<tr>
+								<th data-defaultsort="desc">ID</th>
+								<th>Name</th>
+								<th>Email</th>
 								<th data-defaultsort='disabled'>Actions</th>
 							</tr>
 							</thead>

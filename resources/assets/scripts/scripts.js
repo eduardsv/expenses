@@ -55,7 +55,6 @@ jQuery(document).ready(function($) {
 		$.get('/api/v1/expenses/report', function(data) {
 			$('#reportModal .modal-body').empty();
 			$.each(data, function(index, v) {
-				// $('#reportModal .modal-body')
 				if (!$('#reportModal .modal-body .year-' + v.year).length) {
 					$('#reportModal .modal-body').append('<fieldset class="year-' + v.year + '">' +
 						'<legend>Year: ' + v.year + '</legend>' +
@@ -76,7 +75,6 @@ jQuery(document).ready(function($) {
 		var button = $(this);
 		entry_id = button.parent().parent().attr('data-id');
 		entry_data = entries[entry_id];
-		console.log(entry_data);
 		// change form action //
 		$('#editEntryForm').attr('action', '/api/v1/expenses/' + entry_id);
 		$('#editEntryModal').modal('show');
@@ -195,7 +193,8 @@ jQuery(document).ready(function($) {
 		$('#all-entry-buttons').show();
 	}
 	function showUsersButtons() {
-		console.log('showUsersButtons()');
+		$('.header-buttons').hide();
+		$('#user-buttons').show();
 	}
 
 	function getMyEntries(date) {
@@ -300,8 +299,32 @@ jQuery(document).ready(function($) {
 	}
 
 	function getUsers() {
-		console.log('getUsers()');
-		showUsersButtons();
+		$('.filter-date').removeClass('btn-success').addClass('btn-primary');
+		$('.filter-date').pickmeup('clear');
+		$('#main-nav li').removeClass('active');
+		$('#users_tab').parent().addClass('active');
+		$('.header-buttons').hide();
+		$('.content-table').hide();
+		$('#ajax-loading').show();
+		$.get('/api/v1/users', function(data) {
+			$('#ajax-loading').hide();
+			showUsersButtons();
+			$('#table-users tbody').empty();
+			$('#table-users').show();
+			$.each(data, function(index, v) {
+				$('#table-users tbody').append(
+					'<tr data-id="' + v.id + '">' +
+					'<td>' + v.id + '</td>' +
+					'<td>' + v.name + '</td>' +
+					'<td>' + v.email + '</td>' +
+					'<td>' +
+						'<button type="button" class="btn btn-default btn-edit-user btn-xs" data-id="' + v.id + '">Edit</button>' +
+						'<button type="button" class="btn btn-danger btn-xs btn-delete-user" data-id="' + v.id + '">Delete</button>' +
+					'</td>' +
+				'</tr>');
+			});
+			$.bootstrapSortable(false);
+		});
 	}
 
 	function showLoading() {

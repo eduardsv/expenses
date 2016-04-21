@@ -1,5 +1,6 @@
 @include('modals.new_entry')
 @include('modals.edit_entry')
+@include('modals.new_user')
 @include('modals.report')
 
 {{--@include('modals.new_user')--}}
