@@ -9,7 +9,7 @@
 				<div class="modal-body">
 					<input type="hidden" class="form-control" name="_token" value="{{ csrf_token() }}">
 					@if (Auth::check())
-						@if($user->is_admin > 0)
+						@if($user->is_admin > 1)
 							<div class="form-group">
 								<label class="control-label" for="userInput">Select user</label>
 								<select class="form-control" name="user_id" id="userSelect">

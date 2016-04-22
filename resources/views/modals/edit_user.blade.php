@@ -2,7 +2,7 @@
 	<div class="modal-dialog" role="document">
 		<div class="modal-content">
 			<div class="modal-header">
-				<h4 class="modal-title" id="editUserModalLabel">Edit User</h4>
+				<h4 class="modal-title" id="editUserModalLabel">Update user details</h4>
 			</div>
 			<div class="errors"></div>
 			<form action="/api/v1/users" method="post" id="editUserForm">
