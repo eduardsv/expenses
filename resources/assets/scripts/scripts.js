@@ -260,9 +260,16 @@ jQuery(document).ready(function($) {
 					$('#register_form .errors .alert-text').html(data.responseJSON.error)
 				}
 			},
-			success: function(data){
-				$.get('/', function(data){
+			success: function(data) {
+				$('head').append('<meta name="jwt-token" content="' + data + '">');
+				$.ajaxSetup({ headers: {
+					'X-CSRF-Token': $('meta[name="csrf-token"]').attr('content'),
+					'Authorization': 'Bearer ' + data
+				}});
+				$.get('/app', function(data){
 					$('body').html(data);
+					logged = true;
+					appInit();
 				});
 			}
 		});

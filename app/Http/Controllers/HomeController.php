@@ -70,8 +70,13 @@ class HomeController extends Controller
 			return Response::make(['error' => 'Name cannot be empty'], 400);
 		} else{
 			$user = User::create($credentials);
-			Auth::attempt(['email' => Input::get('email'), 'password' => Input::get('password')]);
-			return Response::make('success');
+			if (Auth::attempt(['email' => Input::get('email'), 'password' => Input::get('password')])) {
+				$user = Auth::user();
+				$token = JWTAuth::fromUser($user);
+				return Response::make($token);
+			} else {
+				return Response::make('error', 400);
+			}
 		}
 	}
 }
