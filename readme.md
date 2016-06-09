@@ -2,7 +2,7 @@
 
 First of all clone the repo:
 ```sh
-git clone git@git.toptal.com:Eduards-Vigulis/eduards-vigulis.git expenses
+git clone git@bitbucket.org:eduardsv/expenses.git expenses
 ```
 Than you have to do this:
 ```sh
