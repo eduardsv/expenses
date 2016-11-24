@@ -29,7 +29,7 @@ var css_files = [
 	'resources/assets/bower/font-awesome/css/font-awesome.min.css',
 	'resources/assets/bower/lato/css/lato.min.css',
 	'resources/assets/bower/bootstrap/dist/css/bootstrap.css',
-	'resources/assets/bower/pickmeup/css/pickmeup.min.css',
+	'resources/assets/bower/pickmeup/css/pickmeup.css',
 	'resources/assets/bower/bootstrap-sortable/Contents/bootstrap-sortable.css',
 	'resources/assets/styles/balloon.min.css',
 	'resources/assets/styles/styles.less'
