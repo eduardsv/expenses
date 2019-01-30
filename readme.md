@@ -23,3 +23,19 @@ php artisan migrate
 php artisan db:seed # populating database
 php artisan serve # starting server at http://localhost:8000/
 ```
+# Login credentials
+*Admin*
+```
+E-mail: eduards@toptal.com
+Password: password
+```
+*User manager*
+```
+E-mail: manager@example.com
+Password: password
+```
+*Simple user*
+```
+E-mail: test@example.com
+Password: password
+```
